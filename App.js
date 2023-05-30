@@ -1,25 +1,36 @@
-import { StyleSheet, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { FlatList, ScrollView, StyleSheet, Text, View, SectionList } from 'react-native';
+import 'react-native-gesture-handler';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
-import Login from './Login';
-import Menu from './Menu';
+import Home from './assets/Screens/home';
+import Login from './assets/Screens/login';
+import Menu from './assets/Screens/menu';
+import About from './assets/Screens/about';
+import Settings from './assets/Screens/settings';
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        <AppHeader />
-          <Stack.Navigator initialRouteName='Login' screenOptions={{headerStyle: {backgroundColor: 'lightyellow'}}}>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Menu" component={Menu} />
-          </Stack.Navigator>
-        <AppFooter />
+    <View style={styles.container}>
+      <AppHeader />
+      <View style={styles.mainContainer}>
+
+        <NavigationContainer>
+          <Drawer.Navigator initialRouteName='Home'>
+            <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen name="Login" component={Login} />
+            <Drawer.Screen name="Menu" component={Menu} />
+            <Drawer.Screen name="About" component={About} />
+            <Drawer.Screen name="Settings" component={Settings} />
+          </Drawer.Navigator>
+        </NavigationContainer>
+
       </View>
-    </NavigationContainer>
+      <AppFooter />
+    </View>
   );
 }
 
@@ -27,31 +38,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: 'white'
+    backgroundColor: 'gold'
   },
   mainContainer: {
     flex: 1,
     backgroundColor: 'white'
   },
-  menuHeader: {
-    textAlign: 'center',
-    margin: 12,
-    fontSize: 24,
-    color: 'navy',
-  },
   menuItem: {
     textAlign: 'center',
     margin: 12,
-    fontSize: 24,
+    fontSize: 16,
     color: 'maroon'
-  },
-  showMenuText: {
-    fontSize: 18,
-    color: 'navy',
-    textAlign: 'center',
-  },
-  introText: {
-    fontSize: 22,
-    textAlign: 'center',
   }
 });
